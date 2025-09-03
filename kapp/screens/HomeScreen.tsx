@@ -4,6 +4,9 @@ import {
 } from 'react-native';
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import * as Location from 'expo-location';
+import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { RootStackParamList } from '../App';
 
 function HomeScreen() {
   const [location, setLocation] = useState<{ lat: number; lon: number } | null>(null);
@@ -11,6 +14,7 @@ function HomeScreen() {
   const [weather, setWeather] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
+  const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
   const WEATHER_API_KEY = "2fd93913159ca115fa7e89d3f24a7878"; // Get from https://openweathermap.org/api
 
@@ -130,7 +134,7 @@ function HomeScreen() {
                 <Text style={styles.alertDescription}>अगले 3 दिनों में बारिश संभव</Text>
               </View>
             </View>
-            <TouchableOpacity style={styles.actionButton}>
+            <TouchableOpacity style={styles.actionButton} onPress={() => navigation.navigate('WeatherPreparation')}>
               <Text style={styles.actionButtonText}>तैयारी करें</Text>
             </TouchableOpacity>
           </TouchableOpacity>
@@ -143,7 +147,7 @@ function HomeScreen() {
                 <Text style={styles.alertDescription}>रबी सीजन के लिए गेहूँ बुवाई का समय</Text>
               </View>
             </View>
-            <TouchableOpacity style={styles.actionButton}>
+            <TouchableOpacity style={styles.actionButton} onPress={() => navigation.navigate('CropSuggestion')}>
               <Text style={styles.actionButtonText}>और जानें</Text>
             </TouchableOpacity>
           </TouchableOpacity>
@@ -156,7 +160,7 @@ function HomeScreen() {
                 <Text style={styles.alertDescription}>आपके क्षेत्र में कीट का प्रकोप देखा गया</Text>
               </View>
             </View>
-            <TouchableOpacity style={styles.actionButton}>
+            <TouchableOpacity style={styles.actionButton} onPress={() => navigation.navigate('PestWarning')}>
               <Text style={styles.actionButtonText}>उपाय देखें</Text>
             </TouchableOpacity>
           </TouchableOpacity>
